@@ -4,6 +4,7 @@ const path = require('path');
 
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   entry: path.resolve(__dirname, 'src', 'app.js'),
@@ -27,6 +28,11 @@ module.exports = {
       template: path.resolve(__dirname, 'src', 'index.html'),
       inject: false,
     }),
+    new CompressionPlugin({
+      filename: '[path].br[query]',
+      algorithm: 'brotliCompress',
+      compressionOptions: { level: 11 }
+    })
   ],
 
   module: {
@@ -48,7 +54,7 @@ module.exports = {
 
   target: 'web',
 
-  devtool: 'inline-source-map',
+  devtool: process.env.NODE_ENV === 'production' ? false : 'inline-source-map',
 
   mode: process.env.NODE_ENV,
 };
