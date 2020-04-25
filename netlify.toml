@@ -9,7 +9,7 @@
 
 [[redirects]]
   from = "/img"
-  to = "/:q"
+  to = "https://images.weserv.nl/?url=:q"
   query = { q = ":q" }
   status = 200
 
