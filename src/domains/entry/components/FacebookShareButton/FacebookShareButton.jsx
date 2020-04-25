@@ -11,6 +11,7 @@ export function FacebookShareButton() {
       return;
     }
 
+    let script$
     const id = requestIdleCallback(() => {
       script$ = addScript({
         crossorigin: 'anonymous',
