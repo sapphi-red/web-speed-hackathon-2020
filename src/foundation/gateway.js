@@ -1,3 +1,4 @@
+import timeout from 'race-timeout';
 import axiosMod from 'axios';
 import { setupMockAPIData } from './mock';
 
@@ -12,18 +13,11 @@ if (process.env.USE_MOCK_DATA === 'true') {
 }
 
 export async function fetch(path, params = {}) {
-  const requestWithTimeout = axios.get(path, {
-    params,
-    timeout: TIMEOUT,
-  });
+  const requestWithTimeout = timeout(axios.get(path, { params }), TIMEOUT);
+  const res = await requestWithTimeout;
 
-  try {
-    const res = await requestWithTimeout;
-  } catch (err) {
-    if (error.code === 'ECONNABORTED') {
-      throw new Error(`Timeout: ${path}`);
-    }
-    throw err;
+  if (res === 'timeout') {
+    throw new Error(`Timeout: ${path}`);
   }
 
   const payload = res?.data?.data;
@@ -36,10 +30,7 @@ export async function fetch(path, params = {}) {
 }
 
 export async function post(path, data) {
-  const requestWithTimeout = axios.post(path, data, {
-    params,
-    timeout: TIMEOUT,
-  });
+  const requestWithTimeout = timeout(axios.post(path, data), TIMEOUT);
   const res = await requestWithTimeout;
 
   if (res.status !== 200) {
