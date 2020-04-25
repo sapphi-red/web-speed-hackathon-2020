@@ -10,7 +10,7 @@ export async function fetchEntryList({ dispatch, blogId, limit = 30, offset }) {
     })
   ).map((entry) => {
     if (entry.thumbnail) {
-      entry.thumbnail = `https://images.weserv.nl/?url=${entry.thumbnail}`;
+      entry.thumbnail = `https://images.weserv.nl/?url=${entry.thumbnail}&output=webp`;
     }
     return entry;
   });

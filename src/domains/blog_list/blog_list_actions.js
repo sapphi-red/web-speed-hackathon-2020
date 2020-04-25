@@ -10,7 +10,7 @@ export async function fetchBlogList({ dispatch, limit = 30, offset }) {
     })
   ).map((blog) => {
     if (blog.image) {
-      blog.image = `https://images.weserv.nl/?url=${blog.image}`;
+      blog.image = `https://images.weserv.nl/?url=${blog.image}&output=webp`;
     }
     return blog;
   });

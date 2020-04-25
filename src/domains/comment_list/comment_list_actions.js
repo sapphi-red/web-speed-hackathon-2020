@@ -7,7 +7,7 @@ export async function fetchCommentList({ dispatch, blogId, entryId }) {
     await fetch(`/api/blog/${blogId}/entry/${entryId}/comments`)
   ).map((comment) => {
     if (comment.commenter?.image) {
-      comment.commenter.image = `https://images.weserv.nl/?url=${comment.commenter.image}`;
+      comment.commenter.image = `https://images.weserv.nl/?url=${comment.commenter.image}&output=webp`;
     }
     return comment;
   });
