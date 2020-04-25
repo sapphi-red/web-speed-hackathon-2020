@@ -22,5 +22,5 @@ module.exports = {
     })
   ],
 
-  map: true,
+  map: process.env.NODE_ENV !== 'production',
 };
