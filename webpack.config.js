@@ -8,6 +8,10 @@ const CompressionPlugin = require('compression-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
+const MomentTimezoneDataPlugin = require('moment-timezone-data-webpack-plugin');
+
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+
 module.exports = {
   entry: path.resolve(__dirname, 'src', 'app.js'),
 
@@ -38,7 +42,13 @@ module.exports = {
       algorithm: 'brotliCompress',
       test: /\.(js|css|html|svg)$/,
       compressionOptions: { level: 11 }
-    })
+    }),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new MomentTimezoneDataPlugin({
+      startYear: 2010,
+      endYear: 2060
+    }),
+    new BundleAnalyzerPlugin()
   ],
 
   module: {
