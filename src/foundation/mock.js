@@ -1,6 +1,5 @@
-import AxiosMockAdapter from 'axios-mock-adapter';
-
 export function setupMockAPIData(axios) {
+  const AxiosMockAdapter = require('axios-mock-adapter');
   const mock = new AxiosMockAdapter(axios, { delayResponse: 250 });
 
   mock.onGet('/api/blogs').reply(200, {

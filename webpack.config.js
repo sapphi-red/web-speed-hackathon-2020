@@ -10,6 +10,38 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 const MomentTimezoneDataPlugin = require('moment-timezone-data-webpack-plugin');
 
+const plugins = [
+  new webpack.DefinePlugin({
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+    'process.env.USE_MOCK_DATA': JSON.stringify(process.env.USE_MOCK_DATA),
+  }),
+  new HtmlWebpackPlugin({
+    title: 'Amida Blog: あみぶろ',
+    template: path.resolve(__dirname, 'src', 'index.html'),
+    inject: 'head',
+    scriptLoading: 'defer'
+  }),
+  new MiniCssExtractPlugin(),
+  new CompressionPlugin({
+    filename: '[path].br[query]',
+    algorithm: 'brotliCompress',
+    test: /\.(js|css|html|svg)$/,
+    compressionOptions: { level: 11 }
+  }),
+  new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+  new MomentTimezoneDataPlugin({
+    startYear: 2010,
+    endYear: 2060
+  }),
+  // remove intersection-observer polyfill
+  new webpack.IgnorePlugin(/^intersection-observer$/),
+]
+
+// remove axios-mock when not mock
+if (process.env.USE_MOCK_DATA !== 'true') {
+  plugins.push(new webpack.IgnorePlugin(/^axios-mock-adapter$/))
+}
+
 module.exports = {
   entry: path.resolve(__dirname, 'src', 'app.js'),
 
@@ -23,30 +55,7 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
 
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-      'process.env.USE_MOCK_DATA': JSON.stringify(process.env.USE_MOCK_DATA),
-    }),
-    new HtmlWebpackPlugin({
-      title: 'Amida Blog: あみぶろ',
-      template: path.resolve(__dirname, 'src', 'index.html'),
-      inject: 'head',
-      scriptLoading: 'defer'
-    }),
-    new MiniCssExtractPlugin(),
-    new CompressionPlugin({
-      filename: '[path].br[query]',
-      algorithm: 'brotliCompress',
-      test: /\.(js|css|html|svg)$/,
-      compressionOptions: { level: 11 }
-    }),
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    new MomentTimezoneDataPlugin({
-      startYear: 2010,
-      endYear: 2060
-    })
-  ],
+  plugins,
 
   module: {
     rules: [
