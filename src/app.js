@@ -9,6 +9,5 @@ function init() {
   render();
 }
 
-window.onload = () => {
-  init();
-};
+// defer script
+init();
