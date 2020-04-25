@@ -5,12 +5,16 @@ const TWITTER_SDK = 'https://platform.twitter.com/widgets.js';
 
 export function TwitterShareButton() {
   useEffect(() => {
-    const script$ = addScript({
-      src: TWITTER_SDK
+    let script$
+    const id = requestIdleCallback(() => {
+      script$ = addScript({
+        src: TWITTER_SDK
+      })
     })
 
     return () => {
-      script$.remove();
+      script$?.remove();
+      cancelIdleCallback(id)
     };
   }, []);
 
