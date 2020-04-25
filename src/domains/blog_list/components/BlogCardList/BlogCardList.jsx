@@ -1,5 +1,6 @@
 import React from 'react';
 import { chunk } from 'lodash-es';
+import './BlogCardList.css';
 
 import { BlogCard } from '../BlogCard';
 

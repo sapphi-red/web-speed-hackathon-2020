@@ -5,6 +5,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: path.resolve(__dirname, 'src', 'app.js'),
@@ -28,9 +29,11 @@ module.exports = {
       template: path.resolve(__dirname, 'src', 'index.html'),
       inject: false,
     }),
+    new MiniCssExtractPlugin(),
     new CompressionPlugin({
       filename: '[path].br[query]',
       algorithm: 'brotliCompress',
+      test: /\.(js|css|html|svg)$/,
       compressionOptions: { level: 11 }
     })
   ],
@@ -49,6 +52,19 @@ module.exports = {
           loader: 'url-loader',
         },
       },
+      {
+        test: /\.css/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              esModule: true,
+            },
+          },
+          'css-loader',
+          'postcss-loader'
+        ],
+      }
     ],
   },
 

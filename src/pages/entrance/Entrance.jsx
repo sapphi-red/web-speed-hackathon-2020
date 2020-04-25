@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { shuffle } from 'lodash-es';
 import Helmet from 'react-helmet';
+import './Entrance.css';
 
 import { renderNotFound } from '../../domains/error/error_actions';
 

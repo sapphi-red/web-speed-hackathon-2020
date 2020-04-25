@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Helmet from 'react-helmet';
+import './Entry.css';
 
 import { Main } from '../../foundation/components/Main';
 

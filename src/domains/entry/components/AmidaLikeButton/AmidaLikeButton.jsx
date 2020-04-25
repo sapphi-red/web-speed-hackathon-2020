@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+import './AmidaLikeButton.css';
 
 export function AmidaLikeButton({ likeCount, onClick }) {
   return (

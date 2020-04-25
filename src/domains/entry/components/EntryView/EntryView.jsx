@@ -1,4 +1,5 @@
 import React from 'react';
+import './EntryView.css';
 
 function Headline({ level, text }) {
   const tagName = `h${level}`;

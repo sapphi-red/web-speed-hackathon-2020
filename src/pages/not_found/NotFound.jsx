@@ -1,4 +1,5 @@
 import React from 'react';
+import './NotFound.css';
 
 import { Main } from '../../foundation/components/Main';
 

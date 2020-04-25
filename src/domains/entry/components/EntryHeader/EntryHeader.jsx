@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment-timezone';
 import { Link } from 'react-router-dom';
+import './EntryHeader.css';
 
 export function EntryHeader({ title, publishedAt, location }) {
   return (

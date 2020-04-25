@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment-timezone';
 import { Link } from 'react-router-dom';
+import './EntryFooter.css';
 
 import { AmidaLikeButton } from '../AmidaLikeButton';
 import { TwitterShareButton } from '../TwitterShareButton';

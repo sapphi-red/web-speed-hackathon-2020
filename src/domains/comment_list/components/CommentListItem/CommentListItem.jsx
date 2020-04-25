@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment-timezone';
 import { Link } from 'react-router-dom';
+import './CommentListItem.css';
 
 import { ProportionalImage } from '../../../../foundation/components/ProportionalImage';
 
