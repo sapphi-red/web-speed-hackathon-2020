@@ -14,6 +14,8 @@ import { EntryList } from '../../domains/entry_list/components/EntryList';
 
 import { Main } from '../../foundation/components/Main';
 
+const INITIAL_FETCH_LENGTH = 10;
+
 export function BlogHome() {
   const { blogId } = useParams();
   const dispatch = useDispatch();
@@ -26,8 +28,10 @@ export function BlogHome() {
 
     (async () => {
       try {
-        await fetchBlog({ dispatch, blogId });
-        await fetchEntryList({ dispatch, blogId });
+        await Promise.all([
+          fetchBlog({ dispatch, blogId }),
+          fetchEntryList({ dispatch, blogId, limit: INITIAL_FETCH_LENGTH })
+        ]);
       } catch {
         await renderNotFound({ dispatch });
       }
@@ -35,6 +39,14 @@ export function BlogHome() {
       setHasFetchFinished(true);
     })();
   }, [dispatch, blogId]);
+
+  const [hasMore, setHasMore] = useState(true);
+  const fetchNext = async () => {
+    const data = await fetchEntryList({ dispatch, offset: entryList.length })
+    if (!data.hasMore) {
+      setHasMore(false)
+    }
+  }
 
   if (!hasFetchFinished) {
     return (
@@ -55,7 +67,7 @@ export function BlogHome() {
         <Main>
           <section className="BlogHome__entry-list">
             <h2 className="BlogHome__entry-list-title">記事一覧</h2>
-            <EntryList blogId={blogId} list={entryList} />
+            <EntryList blogId={blogId} list={entryList} fetchNext={fetchNext} hasMore={hasMore} />
           </section>
         </Main>
       </div>
