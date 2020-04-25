@@ -1,4 +1,5 @@
 import React from 'react';
+import { SimpleImg } from 'react-simple-img';
 import classNames from 'classnames';
 
 export function ProportionalImage({
@@ -14,7 +15,7 @@ export function ProportionalImage({
       style={{ paddingTop: `calc(100% * ${boxAspectRatio})` }}
     >
       <div className="foundation-ProportionalImage__inner">
-        <img className="foundation-ProportionalImage__img" {...imageProps} />
+        <SimpleImg className="foundation-ProportionalImage__img lozad" {...imageProps} />
       </div>
     </div>
   );

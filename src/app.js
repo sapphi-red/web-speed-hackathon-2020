@@ -9,6 +9,7 @@ function init() {
   render();
 }
 
+// TODO
 window.onload = () => {
   init();
 };
