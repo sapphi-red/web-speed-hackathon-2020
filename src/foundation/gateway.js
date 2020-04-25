@@ -19,20 +19,19 @@ export async function fetch(path, params = {}) {
 
   try {
     const res = await requestWithTimeout;
+    const payload = res?.data?.data;
+
+    if (!payload || typeof payload !== 'object') {
+      throw new Error(`Invalid response for ${path}: ${JSON.stringify(res)}`);
+    }
+
+    return payload;
   } catch (err) {
-    if (error.code === 'ECONNABORTED') {
+    if (err.code === 'ECONNABORTED') {
       throw new Error(`Timeout: ${path}`);
     }
     throw err;
   }
-
-  const payload = res?.data?.data;
-
-  if (!payload || typeof payload !== 'object') {
-    throw new Error(`Invalid response for ${path}: ${JSON.stringify(res)}`);
-  }
-
-  return payload;
 }
 
 export async function post(path, data) {
