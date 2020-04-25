@@ -10,6 +10,7 @@ export async function fetchBlogList({ dispatch, limit = 30, offset }) {
     })
   ).map((blog) => {
     blog.image = `/img/?q=${blog.image}`;
+    return blog;
   });
 
   dispatch({
