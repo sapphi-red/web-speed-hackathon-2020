@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { Entrance } from '../pages/entrance';
-import { BlogHome } from '../pages/blog_home';
-import { Entry } from '../pages/entry';
-import { NotFound } from '../pages/not_found';
+const Entrance = React.lazy(() => import('../pages/entrance'));
+const BlogHome = React.lazy(() => import('../pages/blog_home'));
+const Entry = React.lazy(() => import('../pages/entry'));
+const NotFound = React.lazy(() => import('../pages/not_found'));
 
 export function Routes() {
   const error = useSelector((state) => state.error.toJS());
@@ -17,16 +17,24 @@ export function Routes() {
   return (
     <Switch>
       <Route exact path="/">
-        <Entrance />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Entrance />
+        </Suspense>
       </Route>
       <Route exact path="/:blogId">
-        <BlogHome />
+        <Suspense fallback={<div>Loading...</div>}>
+          <BlogHome />
+        </Suspense>
       </Route>
       <Route exact path="/:blogId/entry/:entryId">
-        <Entry />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Entry />
+        </Suspense>
       </Route>
       <Route path="*">
-        <NotFound />
+        <Suspense fallback={<div>Loading...</div>}>
+          <NotFound />
+        </Suspense>
       </Route>
     </Switch>
   );

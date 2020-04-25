@@ -27,7 +27,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Amida Blog: あみぶろ',
       template: path.resolve(__dirname, 'src', 'index.html'),
-      inject: false,
+      inject: 'head',
+      scriptLoading: 'defer'
     }),
     new MiniCssExtractPlugin(),
     new CompressionPlugin({
