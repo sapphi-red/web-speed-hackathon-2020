@@ -31,7 +31,7 @@ export function Entrance() {
 
     (async () => {
       try {
-        await fetchBlogList({ dispatch, limit: INITIAL_FETCH_LENGTH });
+        await fetchBlogList({ dispatch, limit: INITIAL_FETCH_LENGTH, isInitial: true });
       } catch {
         await renderNotFound({ dispatch });
       }
@@ -42,7 +42,7 @@ export function Entrance() {
 
   const [hasMore, setHasMore] = useState(true);
   const fetchNext = async () => {
-    const data = await fetchBlogList({ dispatch, offset: blogList.length, isInitial: true })
+    const data = await fetchBlogList({ dispatch, offset: blogList.length })
     if (!data.hasMore) {
       setHasMore(false)
     }
