@@ -36,7 +36,6 @@ export async function fetch(path, params = {}) {
 
 export async function post(path, data) {
   const requestWithTimeout = axios.post(path, data, {
-    params,
     timeout: TIMEOUT,
   });
   const res = await requestWithTimeout;
