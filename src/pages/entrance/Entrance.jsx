@@ -42,7 +42,7 @@ export function Entrance() {
 
   const [hasMore, setHasMore] = useState(true);
   const fetchNext = async () => {
-    const data = await fetchBlogList({ dispatch, offset: blogList.length })
+    const data = await fetchBlogList({ dispatch, offset: blogList.length, isInitial: true })
     if (!data.hasMore) {
       setHasMore(false)
     }

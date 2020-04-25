@@ -2,7 +2,13 @@ import { fetch } from '../../foundation/gateway';
 
 export const ACTION_ENTRY_LIST_FETCHED = 'ENTRY_LIST_FETCHED';
 
-export async function fetchEntryList({ dispatch, blogId, limit = 30, offset }) {
+export async function fetchEntryList({
+  dispatch,
+  blogId,
+  limit = 30,
+  offset,
+  isInitial,
+}) {
   const entries = (
     await fetch(`/api/blog/${blogId}/entries`, {
       limit,
@@ -19,6 +25,7 @@ export async function fetchEntryList({ dispatch, blogId, limit = 30, offset }) {
     type: ACTION_ENTRY_LIST_FETCHED,
     data: {
       entries,
+      isInitial,
     },
   });
 

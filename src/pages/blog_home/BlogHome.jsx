@@ -30,7 +30,7 @@ export function BlogHome() {
       try {
         await Promise.all([
           fetchBlog({ dispatch, blogId }),
-          fetchEntryList({ dispatch, blogId, limit: INITIAL_FETCH_LENGTH })
+          fetchEntryList({ dispatch, blogId, limit: INITIAL_FETCH_LENGTH, isInitial: true })
         ]);
       } catch {
         await renderNotFound({ dispatch });
@@ -42,7 +42,7 @@ export function BlogHome() {
 
   const [hasMore, setHasMore] = useState(true);
   const fetchNext = async () => {
-    const data = await fetchEntryList({ dispatch, offset: entryList.length })
+    const data = await fetchEntryList({ dispatch, blogId, offset: entryList.length })
     if (!data.hasMore) {
       setHasMore(false)
     }
