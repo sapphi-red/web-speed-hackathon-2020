@@ -4,6 +4,7 @@ const path = require('path');
 
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -21,6 +22,7 @@ const plugins = [
     inject: 'head',
     scriptLoading: 'defer'
   }),
+  new PreloadWebpackPlugin(),
   new MiniCssExtractPlugin(),
   new CompressionPlugin({
     filename: '[path].br[query]',
