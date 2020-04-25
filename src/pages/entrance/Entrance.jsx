@@ -15,7 +15,7 @@ import { ProportionalImage } from '../../foundation/components/ProportionalImage
 import AmidaImage from '../../assets/amida.webp';
 import Amida2Image from '../../assets/amida2.webp';
 
-const INITIAL_FETCH_LENGTH = 10;
+const INITIAL_FETCH_LENGTH = 12;
 
 export function Entrance() {
   const dispatch = useDispatch();
