@@ -25,7 +25,7 @@ export function EntryList({ blogId, list, fetchNext, hasMore }) {
                 >
                   <div className="entry-list-EntryList__thumbnail">
                     <ProportionalImage
-                      src={entry.thumbnail}
+                      src={`${entry.thumbnail}&w=120`}
                       alt=""
                       boxAspectRatio={9 / 16}
                     />

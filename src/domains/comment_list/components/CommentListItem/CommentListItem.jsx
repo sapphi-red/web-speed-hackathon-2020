@@ -6,13 +6,14 @@ import './CommentListItem.css';
 import { ProportionalImage } from '../../../../foundation/components/ProportionalImage';
 
 export function CommentListItem({ comment }) {
+  // var(--comment-CommentListItem-avatar-size)
   return (
     <article
       id={`comment-${comment.comment_id}`}
       className="comment-CommentListItem"
     >
       <div className="comment-CommentListItem__avatar">
-        <ProportionalImage src={comment.commenter.image} boxAspectRatio={1} />
+        <ProportionalImage src={`${comment.commenter.image}?w=50`} boxAspectRatio={1} />
       </div>
       <div className="comment-CommentListItem__body">
         <h3 className="comment-CommentListItem__commenter">

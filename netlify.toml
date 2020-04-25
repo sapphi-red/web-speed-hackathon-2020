@@ -8,12 +8,6 @@
   status = 200
 
 [[redirects]]
-  from = "/img"
-  to = "https://images.weserv.nl/?url=:q"
-  query = { q = ":q" }
-  status = 200
-
-[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
