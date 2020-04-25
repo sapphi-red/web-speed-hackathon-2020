@@ -9,7 +9,7 @@
 
 [[redirects]]
   from = "/img"
-  to = ":q"
+  to = "/:q"
   query = { q = ":q" }
   status = 200
 
