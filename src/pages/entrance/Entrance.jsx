@@ -15,6 +15,7 @@ import { ProportionalImage } from '../../foundation/components/ProportionalImage
 import AmidaImage from '../../assets/amida.webp';
 import Amida2Image from '../../assets/amida2.webp';
 
+const PICKUP_LENGTH = 10;
 const INITIAL_FETCH_LENGTH = 12;
 
 export function Entrance() {
@@ -87,7 +88,7 @@ export function Entrance() {
   }
 
   if (pickups.length === 0 && blogList.length !== 0) {
-    setPickups(shuffle(blogList.slice(0, INITIAL_FETCH_LENGTH)).slice(0, 4));
+    setPickups(shuffle(blogList.slice(0, PICKUP_LENGTH)).slice(0, 4));
   }
 
   return (
