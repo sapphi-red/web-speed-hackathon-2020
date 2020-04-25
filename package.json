@@ -43,9 +43,10 @@
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
     "@babel/node": "^7.8.7",
+    "@babel/plugin-proposal-optional-chaining": "^7.9.0",
     "@babel/plugin-transform-modules-commonjs": "^7.9.0",
-    "@babel/preset-env": "^7.9.0",
-    "@babel/preset-react": "^7.9.1",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/react-fontawesome": "^0.1.9",
@@ -71,5 +72,6 @@
     "redux": "^4.0.5",
     "regenerator-runtime": "^0.13.5",
     "suitcss-utils": "^3.0.0"
-  }
+  },
+  "browserslist": "last 1 Chrome version"
 }
