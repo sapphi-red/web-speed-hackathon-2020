@@ -9,7 +9,7 @@ export async function fetchBlogList({ dispatch, limit = 30, offset }) {
       offset,
     })
   ).map((blog) => {
-    blog.image = `/img/?q=${blog.image}`;
+    blog.image = `/img/?q=${encodeURIComponent(blog.image)}`;
     return blog;
   });
 

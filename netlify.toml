@@ -8,8 +8,9 @@
   status = 200
 
 [[redirects]]
-  from = "/img q=:q"
+  from = "/img"
   to = ":q"
+  query = { q = ":q" }
   status = 200
 
 [[redirects]]
