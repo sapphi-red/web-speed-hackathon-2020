@@ -11,7 +11,11 @@ export function Routes() {
   const error = useSelector((state) => state.error.toJS());
 
   if (error.error !== undefined) {
-    return <NotFound />;
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <NotFound />
+      </Suspense>
+    );
   }
 
   return (
