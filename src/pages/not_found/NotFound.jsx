@@ -3,7 +3,7 @@ import './NotFound.css';
 
 import { Main } from '../../foundation/components/Main';
 
-import BuddaImage from '../../assets/budda.gif';
+import BuddaImage from '../../assets/budda.webp';
 
 export function NotFound() {
   return (
