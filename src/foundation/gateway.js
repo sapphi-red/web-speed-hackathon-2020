@@ -447,8 +447,8 @@ export function setupMockAPIData() {
   });
 }
 
-export async function fetch(path) {
-  const requestWithTimeout = timeout(axios.get(path), TIMEOUT);
+export async function fetch(path, params = {}) {
+  const requestWithTimeout = timeout(axios.get(path, { params }), TIMEOUT);
   const res = await requestWithTimeout;
 
   if (res === 'timeout') {

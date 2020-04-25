@@ -15,6 +15,8 @@ import { ProportionalImage } from '../../foundation/components/ProportionalImage
 import AmidaImage from '../../assets/amida.png';
 import Amida2Image from '../../assets/amida2.png';
 
+const INITIAL_FETCH_LENGTH = 10;
+
 export function Entrance() {
   const dispatch = useDispatch();
   const blogList = useSelector((state) => state.blogList.toJS());
@@ -28,7 +30,7 @@ export function Entrance() {
 
     (async () => {
       try {
-        await fetchBlogList({ dispatch });
+        await fetchBlogList({ dispatch, limit: INITIAL_FETCH_LENGTH });
       } catch {
         await renderNotFound({ dispatch });
       }
@@ -36,6 +38,14 @@ export function Entrance() {
       setHasFetchFinished(true);
     })();
   }, [dispatch]);
+
+  const [hasMore, setHasMore] = useState(true);
+  const fetchNext = async () => {
+    const data = await fetchBlogList({ dispatch, offset: blogList.length })
+    if (!data.hasMore) {
+      setHasMore(false)
+    }
+  }
 
   useEffect(() => {
     const timers = [];
@@ -77,7 +87,7 @@ export function Entrance() {
   }
 
   if (pickups.length === 0 && blogList.length !== 0) {
-    setPickups(shuffle(blogList.slice(0, 10)).slice(0, 4));
+    setPickups(shuffle(blogList.slice(0, INITIAL_FETCH_LENGTH)).slice(0, 4));
   }
 
   return (
@@ -110,7 +120,7 @@ export function Entrance() {
           </article>
           <article className="Entrance__section Entrance__blog-list">
             <h2 className="Entrance__title">ブログ一覧</h2>
-            <BlogCardList list={blogList} columnCount={4} />
+            <BlogCardList list={blogList} columnCount={4} fetchNext={fetchNext} hasMore={hasMore} />
           </article>
         </Main>
       </div>
