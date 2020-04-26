@@ -1,4 +1,5 @@
 import React from 'react';
+import { SimpleImg } from 'react-simple-img';
 import './EntryView.css';
 
 function Headline({ level, text }) {
@@ -24,6 +25,14 @@ function Link({ url, text }) {
 }
 
 function Image({ url, width, height, caption }) {
+  let nUrl = `https://images.weserv.nl/?url=${url}&output=webp`;
+  if (width !== undefined) {
+    nUrl += `&width=${width}`
+  }
+  if (height !== undefined) {
+    nUrl += `&height=${height}`
+  }
+
   return (
     <div className="entry-EntryView__figure-container">
       <a
@@ -33,9 +42,9 @@ function Image({ url, width, height, caption }) {
         className="entry-EntryView__figure-link"
       >
         <figure className="entry-EntryView__figure">
-          <img
+          <SimpleImg
             className="entry-EntryView__img"
-            src={url}
+            src={nUrl}
             style={{ width, height }}
             alt={caption}
           />
@@ -54,6 +63,7 @@ function Video({ url, width, height }) {
       className="entry-EntryView__video"
       src={url}
       style={{ width, height }}
+      preload="none"
       controls
     />
   );
