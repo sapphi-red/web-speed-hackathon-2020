@@ -32,6 +32,8 @@ export function BlogHome() {
           fetchBlog({ dispatch, blogId }),
           fetchEntryList({ dispatch, blogId, limit: INITIAL_FETCH_LENGTH, isInitial: true })
         ]);
+        // 初回取得後に縦幅足りない用
+        window.dispatchEvent(new Event('scroll'))
       } catch {
         await renderNotFound({ dispatch });
       }

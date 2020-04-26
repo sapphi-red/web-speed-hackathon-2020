@@ -32,6 +32,8 @@ export function Entrance() {
     (async () => {
       try {
         await fetchBlogList({ dispatch, limit: INITIAL_FETCH_LENGTH, isInitial: true });
+        // 初回取得後に縦幅足りない用
+        window.dispatchEvent(new Event('scroll'))
       } catch {
         await renderNotFound({ dispatch });
       }
