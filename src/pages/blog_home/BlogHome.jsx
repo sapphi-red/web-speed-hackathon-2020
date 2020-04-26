@@ -70,14 +70,6 @@ export function BlogHome() {
     window.dispatchEvent(new Event('scroll'));
   });
 
-  if (!hasFetchFinished) {
-    return (
-      <Helmet>
-        <title>Amida Blog: あみぶろ</title>
-      </Helmet>
-    );
-  }
-
   return (
     <>
       <Helmet>

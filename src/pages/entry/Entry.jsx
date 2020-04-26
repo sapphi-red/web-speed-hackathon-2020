@@ -62,10 +62,6 @@ export function Entry() {
     })();
   }, [dispatch, blogId, entryId]);
 
-  if (!hasHeaderFetchFinished) {
-    return <Helmet></Helmet>;
-  }
-
   return (
     <>
       <Helmet>
