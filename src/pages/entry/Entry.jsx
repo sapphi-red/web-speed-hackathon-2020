@@ -65,16 +65,15 @@ export function Entry() {
   return (
     <>
       <Helmet>
-        {hasHeaderFetchFinished ? (
-          <title>
-            {entry.title} - {blog.nickname} - Amida Blog: あみぶろ
-          </title>
-        ) : (
-          <title>Amida Blog: あみぶろ</title>
-        )}
+        <title>
+          {hasHeaderFetchFinished && hasFetchFinished
+            ? `${entry.title} - ${blog.nickname} - `
+            : ''}
+          {'Amida Blog: あみぶろ'}
+        </title>
       </Helmet>
       <div className="Entry">
-        <BlogHeader blog={blog} />
+        <BlogHeader blog={hasFetchFinished ? blog : undefined} />
 
         <Main>
           <article className="Entry__contents">

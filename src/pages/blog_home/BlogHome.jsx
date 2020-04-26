@@ -73,14 +73,13 @@ export function BlogHome() {
   return (
     <>
       <Helmet>
-        {hasHeaderFetchFinished ? (
-          <title>{blog.nickname} - Amida Blog: あみぶろ</title>
-        ) : (
-          <title>Amida Blog: あみぶろ</title>
-        )}
+        <title>
+          {hasHeaderFetchFinished ? `${blog.nickname} - ` : ''}
+          {'Amida Blog: あみぶろ'}
+        </title>
       </Helmet>
       <div className="BlogHome">
-        <BlogHeader blog={blog} />
+        <BlogHeader blog={hasFetchFinished ? blog : undefined} />
 
         <Main>
           <section className="BlogHome__entry-list">
