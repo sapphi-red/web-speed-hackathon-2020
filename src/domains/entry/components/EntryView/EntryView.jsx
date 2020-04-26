@@ -63,7 +63,7 @@ function Video({ url, width, height }) {
       className="entry-EntryView__video"
       src={url}
       style={{ width, height }}
-      preload="none"
+      preload="metadata"
       controls
     />
   );
