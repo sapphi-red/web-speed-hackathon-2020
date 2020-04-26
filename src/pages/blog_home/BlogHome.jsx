@@ -50,6 +50,11 @@ export function BlogHome() {
     }
   }
 
+  useEffect(() => {
+    // 初回取得後に縦幅足りない用
+    window.dispatchEvent(new Event('scroll'))
+  })
+
   if (!hasFetchFinished) {
     return (
       <Helmet>
