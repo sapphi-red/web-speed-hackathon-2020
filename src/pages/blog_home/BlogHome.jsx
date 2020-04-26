@@ -80,11 +80,7 @@ export function BlogHome() {
         )}
       </Helmet>
       <div className="BlogHome">
-        {hasHeaderFetchFinished ? (
-          <BlogHeader blog={blog} />
-        ) : (
-          <div>Loading...</div>
-        )}
+        <BlogHeader blog={blog} />
 
         <Main>
           <section className="BlogHome__entry-list">

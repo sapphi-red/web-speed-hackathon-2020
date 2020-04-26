@@ -74,11 +74,7 @@ export function Entry() {
         )}
       </Helmet>
       <div className="Entry">
-        {hasHeaderFetchFinished ? (
-          <BlogHeader blog={blog} />
-        ) : (
-          <div>Loading...</div>
-        )}
+        <BlogHeader blog={blog} />
 
         <Main>
           <article className="Entry__contents">
