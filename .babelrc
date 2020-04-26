@@ -10,5 +10,14 @@
     ],
     "@babel/preset-react"
   ],
-  "plugins": ["@babel/plugin-proposal-optional-chaining"]
+  "plugins": ["@babel/plugin-proposal-optional-chaining"],
+  "env": {
+    "production": {
+      "plugins": [
+        "@babel/plugin-transform-react-constant-elements",
+        "@babel/plugin-transform-react-inline-elements",
+        "transform-react-remove-prop-types"
+      ]
+    }
+  }
 }
