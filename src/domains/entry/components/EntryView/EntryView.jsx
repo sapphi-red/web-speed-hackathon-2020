@@ -27,10 +27,10 @@ function Link({ url, text }) {
 function Image({ url, width, height, caption }) {
   let nUrl = `https://images.weserv.nl/?url=${url}&output=webp`;
   if (width !== undefined) {
-    nUrl += `&width=${width}`
+    nUrl += `&width=${width}`;
   }
   if (height !== undefined) {
-    nUrl += `&height=${height}`
+    nUrl += `&height=${height}`;
   }
 
   return (
@@ -73,7 +73,9 @@ function Embed({ html }) {
   return (
     <div
       className="entry-EntryView__embed"
-      dangerouslySetInnerHTML={{ __html: html }}
+      dangerouslySetInnerHTML={{
+        __html: html.replace(/<iframe /g, '<iframe loading="lazy" '),
+      }}
     />
   );
 }
