@@ -59,7 +59,6 @@
     "core-js": "^3.6.4",
     "express": "^4.17.1",
     "express-static-gzip": "^2.0.6",
-    "lodash-es": "^4.17.15",
     "normalize.css": "^8.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

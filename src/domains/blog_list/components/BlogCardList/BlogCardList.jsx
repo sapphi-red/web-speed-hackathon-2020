@@ -1,5 +1,5 @@
 import React from 'react';
-import { chunk } from 'lodash-es';
+import { chunk } from './chunk';
 import './BlogCardList.css';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
