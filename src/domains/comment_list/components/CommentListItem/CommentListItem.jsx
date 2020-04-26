@@ -13,7 +13,7 @@ export function CommentListItem({ comment }) {
       className="comment-CommentListItem"
     >
       <div className="comment-CommentListItem__avatar">
-        <ProportionalImage src={`${comment.commenter.image}?w=50`} boxAspectRatio={1} />
+        <ProportionalImage src={`${comment.commenter.image}&w=50`} boxAspectRatio={1} />
       </div>
       <div className="comment-CommentListItem__body">
         <h3 className="comment-CommentListItem__commenter">
