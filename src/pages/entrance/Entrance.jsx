@@ -31,7 +31,11 @@ export function Entrance() {
 
     (async () => {
       try {
-        await fetchBlogList({ dispatch, limit: INITIAL_FETCH_LENGTH, isInitial: true });
+        await fetchBlogList({
+          dispatch,
+          limit: INITIAL_FETCH_LENGTH,
+          isInitial: true,
+        });
       } catch {
         await renderNotFound({ dispatch });
       }
@@ -42,16 +46,16 @@ export function Entrance() {
 
   const [hasMore, setHasMore] = useState(true);
   const fetchNext = async () => {
-    const data = await fetchBlogList({ dispatch, offset: blogList.length })
+    const data = await fetchBlogList({ dispatch, offset: blogList.length });
     if (!data.hasMore) {
-      setHasMore(false)
+      setHasMore(false);
     }
-  }
+  };
 
   useEffect(() => {
     // 初回取得後に縦幅足りない用
-    window.dispatchEvent(new Event('scroll'))
-  })
+    window.dispatchEvent(new Event('scroll'));
+  });
 
   useEffect(() => {
     const timers = [];
@@ -84,14 +88,6 @@ export function Entrance() {
     };
   }, []);
 
-  if (!hasFetchFinished) {
-    return (
-      <Helmet>
-        <title>Amida Blog: あみぶろ</title>
-      </Helmet>
-    );
-  }
-
   if (pickups.length === 0 && blogList.length !== 0) {
     setPickups(shuffle(blogList.slice(0, PICKUP_LENGTH)).slice(0, 4));
   }
@@ -122,11 +118,24 @@ export function Entrance() {
         <Main>
           <article className="Entrance__section Entrance__pickup">
             <h2 className="Entrance__title">Pickups</h2>
-            <BlogCardList list={pickups} columnCount={4} />
+            {hasFetchFinished ? (
+              <BlogCardList list={pickups} columnCount={4} />
+            ) : (
+              <div>Loading...</div>
+            )}
           </article>
           <article className="Entrance__section Entrance__blog-list">
             <h2 className="Entrance__title">ブログ一覧</h2>
-            <BlogCardList list={blogList} columnCount={4} fetchNext={fetchNext} hasMore={hasMore} />
+            {hasFetchFinished ? (
+              <BlogCardList
+                list={blogList}
+                columnCount={4}
+                fetchNext={fetchNext}
+                hasMore={hasMore}
+              />
+            ) : (
+              <div>Loading...</div>
+            )}
           </article>
         </Main>
       </div>
