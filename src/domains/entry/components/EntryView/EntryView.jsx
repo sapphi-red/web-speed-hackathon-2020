@@ -63,7 +63,7 @@ function Video({ url, width, height }) {
       className="entry-EntryView__video"
       src={url}
       style={{ width, height }}
-      preload="metadata"
+      preload="none"
       controls
     />
   );
@@ -74,7 +74,7 @@ function Embed({ html }) {
     <div
       className="entry-EntryView__embed"
       dangerouslySetInnerHTML={{
-        __html: html.replace(/<iframe /g, '<iframe loading="lazy" '),
+        __html: html.replace(/<iframe /g, '<iframe importance="low" '),
       }}
     />
   );
