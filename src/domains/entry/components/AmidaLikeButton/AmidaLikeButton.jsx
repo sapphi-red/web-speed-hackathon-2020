@@ -16,6 +16,7 @@ export function AmidaLikeButton({ likeCount, onClick }) {
         class="svg-inline--fa fa-thumbs-up fa-w-16"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512"
+        style={{ height: '1em', width: '1em' }}
       >
         <path
           fill="currentColor"
