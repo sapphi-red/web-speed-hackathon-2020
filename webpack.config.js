@@ -8,8 +8,6 @@ const CompressionPlugin = require('compression-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
-const MomentTimezoneDataPlugin = require('moment-timezone-data-webpack-plugin');
-
 const plugins = [
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
@@ -27,11 +25,6 @@ const plugins = [
     algorithm: 'brotliCompress',
     test: /\.(js|css|html|svg)$/,
     compressionOptions: { level: 11 }
-  }),
-  new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-  new MomentTimezoneDataPlugin({
-    startYear: 2010,
-    endYear: 2060
   }),
   // remove intersection-observer polyfill
   new webpack.IgnorePlugin(/^intersection-observer$/),

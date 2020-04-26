@@ -1,6 +1,6 @@
 import React from 'react';
-import moment from 'moment-timezone';
 import { Link } from 'react-router-dom';
+import { UTCISOtoLocalISO, fromNow } from '../../../date';
 import './CommentListItem.css';
 
 import { ProportionalImage } from '../../../../foundation/components/ProportionalImage';
@@ -23,10 +23,10 @@ export function CommentListItem({ comment }) {
         <footer className="comment-CommentListItem__footer">
           <Link to={`#comment-${comment.comment_id}`}>
             <time
-              dateTime={moment(comment.posted_at).toISOString(true)}
-              title={moment(comment.posted_at).toISOString(true)}
+              dateTime={UTCISOtoLocalISO(comment.posted_at)}
+              title={UTCISOtoLocalISO(comment.posted_at)}
             >
-              {moment(comment.posted_at).fromNow()}
+              {fromNow(comment.posted_at)}
             </time>
           </Link>
         </footer>

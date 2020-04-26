@@ -1,6 +1,6 @@
 import React from 'react';
-import moment from 'moment-timezone';
 import { Link } from 'react-router-dom';
+import { UTCISOtoLocalISO, fromNow } from '../../../date';
 import './EntryFooter.css';
 
 import { AmidaLikeButton } from '../AmidaLikeButton';
@@ -12,8 +12,8 @@ export function EntryFooter({ location, likeCount, publishedAt, onClickLike }) {
   return (
     <div className="entry-EntryFooter">
       <Link to={location.pathname} className="entry-EntryFooter__published-at">
-        <time dateTime={moment(publishedAt).toISOString(true)}>
-          {moment(publishedAt).fromNow()}
+        <time dateTime={UTCISOtoLocalISO(publishedAt)}>
+          {fromNow(publishedAt)}
         </time>
       </Link>
       <div className="entry-EntryFooter__share">

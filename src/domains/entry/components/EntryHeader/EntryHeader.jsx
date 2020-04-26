@@ -1,6 +1,6 @@
 import React from 'react';
-import moment from 'moment-timezone';
 import { Link } from 'react-router-dom';
+import { UTCISOtoLocalISO, format } from '../../../date';
 import './EntryHeader.css';
 
 export function EntryHeader({ title, publishedAt, location }) {
@@ -13,10 +13,10 @@ export function EntryHeader({ title, publishedAt, location }) {
       </h2>
       <time
         className="entry-EntryHeader__published-at"
-        dateTime={moment(publishedAt).toISOString(true)}
-        title={moment(publishedAt).toISOString(true)}
+        dateTime={UTCISOtoLocalISO(publishedAt)}
+        title={UTCISOtoLocalISO(publishedAt)}
       >
-        {moment(publishedAt).format('YYYY-MM-DD')}
+        {format(publishedAt)}
       </time>
     </div>
   );

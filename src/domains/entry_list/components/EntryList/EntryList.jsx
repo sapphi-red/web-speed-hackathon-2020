@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import moment from 'moment-timezone';
+import { UTCISOtoLocalISO } from '../../../date';
 import './EntryList.css';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -33,10 +33,10 @@ export function EntryList({ blogId, list, fetchNext, hasMore }) {
                   <div className="entry-list-EntryList__text">
                     <time
                       className="entry-list-EntryList__published-at"
-                      dateTime={moment(entry.published_at).toISOString(true)}
-                      title={moment(entry.published_at).toISOString(true)}
+                      dateTime={UTCISOtoLocalISO(entry.published_at)}
+                      title={UTCISOtoLocalISO(entry.published_at)}
                     >
-                      {moment(entry.published_at).format('YYYY-MM-DD')}
+                      {format(entry.published_at)}
                     </time>
                     <p className="entry-list-EntryList__title">{entry.title}</p>
                   </div>
