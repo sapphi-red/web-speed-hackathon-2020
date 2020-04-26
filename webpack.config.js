@@ -32,6 +32,7 @@ const plugins = [
 
 // remove axios-mock when not mock
 if (process.env.USE_MOCK_DATA !== 'true') {
+  plugins.push(new webpack.IgnorePlugin(/^axios$/))
   plugins.push(new webpack.IgnorePlugin(/^axios-mock-adapter$/))
 }
 
