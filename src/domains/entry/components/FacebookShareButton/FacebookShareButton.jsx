@@ -11,17 +11,13 @@ export function FacebookShareButton() {
       return;
     }
 
-    let script$
-    const id = requestIdleCallback(() => {
-      script$ = addScript({
-        crossorigin: 'anonymous',
-        src: FACEBOOK_SDK
-      })
+    const script$ = addScript({
+      crossorigin: 'anonymous',
+      src: FACEBOOK_SDK
     })
 
     return () => {
-      script$?.remove();
-      cancelIdleCallback(id)
+      script$.remove();
     };
   }, []);
 
