@@ -5,27 +5,23 @@ const FACEBOOK_SDK =
   'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0';
 
 export function FacebookShareButton() {
-  let script$, id;
-  if (!('FB' in globalThis)) {
-    id = requestIdleCallback(() => {
-      script$ = addScript({
-        crossorigin: 'anonymous',
-        src: FACEBOOK_SDK
-      })
-    })
-  }
-
   useEffect(() => {
     if ('FB' in globalThis) {
       globalThis.FB.XFBML.parse();
       return;
     }
 
+    let script$
+    const id = requestIdleCallback(() => {
+      script$ = addScript({
+        crossorigin: 'anonymous',
+        src: FACEBOOK_SDK
+      })
+    })
+
     return () => {
       script$?.remove();
-      if (id !== undefined) {
-        cancelIdleCallback(id);
-      }
+      cancelIdleCallback(id)
     };
   }, []);
 
