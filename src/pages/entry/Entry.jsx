@@ -26,70 +26,98 @@ export function Entry() {
   const blog = useSelector((state) => ({ ...state.blog }));
   const entry = useSelector((state) => ({ ...state.entry }));
   const commentList = useSelector((state) => [...state.commentList]);
+  const [hasHeaderFetchFinished, setHasHeaderFetchFinished] = useState(false);
   const [hasFetchFinished, setHasFetchFinished] = useState(false);
+  const [hasCommentFetchFinished, setHasCommentFetchFinished] = useState(false);
 
   useEffect(() => {
+    setHasHeaderFetchFinished(false);
     setHasFetchFinished(false);
+    setHasCommentFetchFinished(false);
 
     (async () => {
       try {
-        await Promise.all([
-          fetchBlog({ dispatch, blogId }),
-          fetchEntry({ dispatch, blogId, entryId }),
-          fetchCommentList({ dispatch, blogId, entryId })
-        ])
+        await fetchBlog({ dispatch, blogId });
+      } catch {}
+
+      setHasHeaderFetchFinished(true);
+    })();
+    (async () => {
+      try {
+        await fetchEntry({ dispatch, blogId, entryId });
       } catch {
         await renderNotFound({ dispatch });
       }
 
       setHasFetchFinished(true);
     })();
+    (async () => {
+      try {
+        await fetchCommentList({ dispatch, blogId, entryId });
+      } catch {}
+
+      setHasCommentFetchFinished(true);
+    })();
   }, [dispatch, blogId, entryId]);
 
-  if (!hasFetchFinished) {
-    return (
-      <Helmet>
-        <title>Amida Blog: あみぶろ</title>
-      </Helmet>
-    );
+  if (!hasHeaderFetchFinished) {
+    return <Helmet></Helmet>;
   }
 
   return (
     <>
       <Helmet>
-        <title>
-          {entry.title} - {blog.nickname} - Amida Blog: あみぶろ
-        </title>
+        {hasHeaderFetchFinished ? (
+          <title>
+            {entry.title} - {blog.nickname} - Amida Blog: あみぶろ
+          </title>
+        ) : (
+          <title>Amida Blog: あみぶろ</title>
+        )}
       </Helmet>
       <div className="Entry">
-        <BlogHeader blog={blog} />
+        {hasHeaderFetchFinished ? (
+          <BlogHeader blog={blog} />
+        ) : (
+          <div>Loading...</div>
+        )}
 
         <Main>
           <article className="Entry__contents">
-            <header className="Entry__header">
-              <EntryHeader
-                title={entry.title}
-                location={location}
-                publishedAt={entry.published_at}
-              />
-            </header>
-            <section>
-              <EntryView items={entry.items} />
-            </section>
-            <footer className="Entry__footer">
-              <EntryFooter
-                likeCount={entry.like_count}
-                location={location}
-                publishedAt={entry.published_at}
-                onClickLike={() => likeEntry({ dispatch, blogId, entryId })}
-              />
-            </footer>
+            {hasFetchFinished ? (
+              <>
+                <header className="Entry__header">
+                  <EntryHeader
+                    title={entry.title}
+                    location={location}
+                    publishedAt={entry.published_at}
+                  />
+                </header>
+                <section>
+                  <EntryView items={entry.items} />
+                </section>
+                <footer className="Entry__footer">
+                  <EntryFooter
+                    likeCount={entry.like_count}
+                    location={location}
+                    publishedAt={entry.published_at}
+                    onClickLike={() => likeEntry({ dispatch, blogId, entryId })}
+                  />
+                </footer>
+              </>
+            ) : (
+              <div>Loading...</div>
+            )}
           </article>
           <article className="Entry__comment-list">
             <header className="Entry__comment-list-header">
               <h2>コメント一覧</h2>
             </header>
-            <CommentList list={commentList} />
+            {hasCommentFetchFinished ? (
+              <CommentList list={commentList} />
+            ) : (
+              <div>Loading...</div>
+            )}
           </article>
         </Main>
       </div>
