@@ -74,7 +74,7 @@ function Embed({ html }) {
     <div
       className="entry-EntryView__embed"
       dangerouslySetInnerHTML={{
-        __html: html.replace(/<iframe /g, '<iframe importance="low" '),
+        __html: html.replace(/<iframe /g, '<iframe importance="low" onload="this.dataset.loading = \'false\'" data-loading="true" '),
       }}
     />
   );

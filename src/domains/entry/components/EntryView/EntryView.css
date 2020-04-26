@@ -96,3 +96,24 @@
   display: flex;
   justify-content: center;
 }
+
+.entry-EntryView__embed iframe[data-loading='true'] {
+  display: block;
+  background: linear-gradient(90deg, #eee, #ccc, #eee);
+  background-size: 400% 400%;
+  animation: iloading 3s ease infinite;
+}
+
+@keyframes iloading {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
