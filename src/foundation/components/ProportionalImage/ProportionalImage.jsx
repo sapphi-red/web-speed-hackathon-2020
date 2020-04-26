@@ -6,6 +6,7 @@ import './ProportionalImage.css';
 export function ProportionalImage({
   boxAspectRatio,
   roundedAsCardThumbnail,
+  isLazy = true,
   ...imageProps
 }) {
   return (
@@ -16,7 +17,14 @@ export function ProportionalImage({
       style={{ paddingTop: `calc(100% * ${boxAspectRatio})` }}
     >
       <div className="foundation-ProportionalImage__inner">
-        <SimpleImg className="foundation-ProportionalImage__img" {...imageProps} />
+        {isLazy ? (
+          <SimpleImg
+            className="foundation-ProportionalImage__img"
+            {...imageProps}
+          />
+        ) : (
+          <img className="foundation-ProportionalImage__img" {...imageProps} />
+        )}
       </div>
     </div>
   );

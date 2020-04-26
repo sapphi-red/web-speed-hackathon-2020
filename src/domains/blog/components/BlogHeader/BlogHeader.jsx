@@ -8,7 +8,7 @@ export function BlogHeader({ blog }) {
   return (
     <header className="blog-BlogHeader">
       <div className="blog-BlogHeader__bg-image">
-        <ProportionalImage src={`${blog.image}&w=800&q=50`} alt="" boxAspectRatio={9 / 16} importance="high" />
+        <ProportionalImage src={`${blog.image}&w=800&q=50`} alt="" isLazy={false} boxAspectRatio={9 / 16} importance="high" />
       </div>
       <div className="blog-BlogHeader__contents">
         <h1 className="blog-BlogHeader__title">
