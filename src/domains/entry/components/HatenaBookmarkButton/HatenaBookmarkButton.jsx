@@ -4,17 +4,26 @@ import { addScript } from '../../addScript';
 const HATENA_SDK = 'https://b.st-hatena.com/js/bookmark_button.js';
 
 export function HatenaBookmarkButton({ location }) {
-  useEffect(() => {
-    let script$
-    const id = requestIdleCallback(() => {
+  let script$, id;
+  if (!globalThis.Hatena?.Bookmark?.BookmarkButton?.setup) {
+    id = requestIdleCallback(() => {
       script$ = addScript({
         src: HATENA_SDK
       })
     })
+  }
+
+  useEffect(() => {
+    if (globalThis.Hatena?.Bookmark?.BookmarkButton?.setup) {
+      globalThis.Hatena.Bookmark.BookmarkButton.setup();
+      return
+    }
 
     return () => {
       script$?.remove();
-      cancelIdleCallback(id)
+      if (id !== undefined) {
+        cancelIdleCallback(id);
+      }
     };
   }, []);
 

@@ -86,30 +86,32 @@ export function Entry() {
 
         <Main>
           <article className="Entry__contents">
-            {hasFetchFinished ? (
-              <>
-                <header className="Entry__header">
-                  <EntryHeader
-                    title={entry.title}
-                    location={location}
-                    publishedAt={entry.published_at}
-                  />
-                </header>
-                <section>
-                  <EntryView items={entry.items} />
-                </section>
-                <footer className="Entry__footer">
-                  <EntryFooter
-                    likeCount={entry.like_count}
-                    location={location}
-                    publishedAt={entry.published_at}
-                    onClickLike={() => likeEntry({ dispatch, blogId, entryId })}
-                  />
-                </footer>
-              </>
-            ) : (
-              <div>Loading...</div>
-            )}
+            <header className="Entry__header">
+              {hasFetchFinished ? (
+                <EntryHeader
+                  title={entry.title}
+                  location={location}
+                  publishedAt={entry.published_at}
+                />
+              ) : (
+                <div>Loading...</div>
+              )}
+            </header>
+            <section>
+              {hasFetchFinished ? (
+                <EntryView items={entry.items} />
+              ) : (
+                <div>Loading...</div>
+              )}
+            </section>
+            <footer className="Entry__footer">
+              <EntryFooter
+                likeCount={entry?.like_count}
+                location={location}
+                publishedAt={entry?.published_at}
+                onClickLike={() => likeEntry({ dispatch, blogId, entryId })}
+              />
+            </footer>
           </article>
           <article className="Entry__comment-list">
             <header className="Entry__comment-list-header">

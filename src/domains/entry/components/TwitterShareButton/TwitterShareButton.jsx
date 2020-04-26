@@ -4,17 +4,26 @@ import { addScript } from '../../addScript';
 const TWITTER_SDK = 'https://platform.twitter.com/widgets.js';
 
 export function TwitterShareButton() {
-  useEffect(() => {
-    let script$
-    const id = requestIdleCallback(() => {
+  let script$, id;
+  if (!globalThis?.twttr?.widgets?.load) {
+    id = requestIdleCallback(() => {
       script$ = addScript({
         src: TWITTER_SDK
       })
     })
+  }
+
+  useEffect(() => {
+    if (globalThis?.twttr?.widgets?.load) {
+      globalThis?.twttr?.widgets?.load();
+      return
+    }
 
     return () => {
       script$?.remove();
-      cancelIdleCallback(id)
+      if (id !== undefined) {
+        cancelIdleCallback(id);
+      }
     };
   }, []);
 
