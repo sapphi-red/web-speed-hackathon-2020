@@ -94,5 +94,8 @@ module.exports = {
       },
       extractComments: true
     })],
+    splitChunks: {
+      chunks: 'all'
+    }
   },
 };
