@@ -7,7 +7,10 @@ const twoDigitize = nDigitize(2);
 const fourDigitize = nDigitize(4);
 
 export const UTCISOtoLocalISO = (UTC) => {
-  const local = new Date(Date.parse(UTC) + tzOffsetMin * 60 * 1000);
+  if (typeof UTC !== 'number') {
+    UTC = Date.parse(UTC);
+  }
+  const local = new Date(UTC + tzOffsetMin * 60 * 1000);
   const suffix = `${tzOffsetMin > 0 ? '+' : ''}${twoDigitize(
     tzOffsetHour,
   )}:${twoDigitize(tzOffsetHMin)}`;
@@ -22,7 +25,7 @@ export const format = (date) => {
 };
 
 export const fromNow = (date) => {
-  const oldT = Date.parse(date);
+  const oldT = typeof date === 'number' ? date : Date.parse(date);
   const nowT = Date.now();
 
   // 秒単位
