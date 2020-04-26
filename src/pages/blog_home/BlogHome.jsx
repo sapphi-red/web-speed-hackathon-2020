@@ -19,8 +19,8 @@ const INITIAL_FETCH_LENGTH = 10;
 export function BlogHome() {
   const { blogId } = useParams();
   const dispatch = useDispatch();
-  const blog = useSelector((state) => state.blog.toJS());
-  const entryList = useSelector((state) => state.entryList.toJS());
+  const blog = useSelector((state) => ({ ...state.blog }));
+  const entryList = useSelector((state) => [...state.entryList]);
   const [hasFetchFinished, setHasFetchFinished] = useState(false);
 
   useEffect(() => {
