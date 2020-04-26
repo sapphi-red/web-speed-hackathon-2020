@@ -19,7 +19,9 @@ const plugins = [
     inject: 'head',
     scriptLoading: 'defer'
   }),
-  new MiniCssExtractPlugin(),
+  new MiniCssExtractPlugin({
+    filename: '[name].[hash:5].css'
+  }),
   new CompressionPlugin({
     filename: '[path].br[query]',
     algorithm: 'brotliCompress',
@@ -41,7 +43,7 @@ module.exports = {
 
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].bundle.js',
+    filename: '[name].[hash:5].js',
     publicPath: '/'
   },
 
