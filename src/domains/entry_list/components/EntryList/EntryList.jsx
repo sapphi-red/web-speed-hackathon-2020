@@ -7,15 +7,16 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { ProportionalImage } from '../../../../foundation/components/ProportionalImage';
 
 export function EntryList({ blogId, list, fetchNext, hasMore }) {
+  const filteredList = list.filter((entry) => entry.publish_flag === 'open')
+
   return (
     <ul className="entry-list-EntryList">
       <InfiniteScroll
-        dataLength={list.length}
+        dataLength={filteredList.length}
         next={fetchNext}
         hasMore={hasMore}
       >
-        {list
-          .filter((entry) => entry.publish_flag === 'open')
+        {filteredList
           .map((entry, i) => {
             return (
               <li key={i} className="entry-list-EntryList__entry">
