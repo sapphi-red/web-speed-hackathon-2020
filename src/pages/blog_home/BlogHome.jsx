@@ -14,7 +14,7 @@ import { EntryList } from '../../domains/entry_list/components/EntryList';
 
 import { Main } from '../../foundation/components/Main';
 
-const INITIAL_FETCH_LENGTH = 10;
+const INITIAL_FETCH_LENGTH = 5;
 
 export function BlogHome() {
   const { blogId } = useParams();
