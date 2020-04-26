@@ -16,7 +16,7 @@ export function ProportionalImage({
       })}
       style={{ paddingTop: `calc(100% * ${boxAspectRatio})` }}
     >
-      <div className="foundation-ProportionalImage__inner">
+      <div className={`foundation-ProportionalImage__inner ${isLazy ? 'lazy' : ''}`}>
         {isLazy ? (
           <SimpleImg
             className="foundation-ProportionalImage__img"
