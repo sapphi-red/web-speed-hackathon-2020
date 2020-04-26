@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { UTCISOtoLocalISO } from '../../../date';
+import { UTCISOtoLocalISO, format } from '../../../date';
 import './EntryList.css';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
