@@ -21,19 +21,30 @@ export function BlogHome() {
   const dispatch = useDispatch();
   const blog = useSelector((state) => ({ ...state.blog }));
   const entryList = useSelector((state) => [...state.entryList]);
+  const [hasHeaderFetchFinished, setHasHeaderFetchFinished] = useState(false);
   const [hasFetchFinished, setHasFetchFinished] = useState(false);
 
   useEffect(() => {
+    setHasHeaderFetchFinished(false);
     setHasFetchFinished(false);
 
     (async () => {
       try {
-        await Promise.all([
-          fetchBlog({ dispatch, blogId }),
-          fetchEntryList({ dispatch, blogId, limit: INITIAL_FETCH_LENGTH, isInitial: true })
-        ]);
-        // 初回取得後に縦幅足りない用
-        window.dispatchEvent(new Event('scroll'))
+        await fetchBlog({ dispatch, blogId });
+      } catch {
+        await renderNotFound({ dispatch });
+      }
+
+      setHasHeaderFetchFinished(true);
+    })();
+    (async () => {
+      try {
+        await fetchEntryList({
+          dispatch,
+          blogId,
+          limit: INITIAL_FETCH_LENGTH,
+          isInitial: true,
+        });
       } catch {
         await renderNotFound({ dispatch });
       }
@@ -44,16 +55,20 @@ export function BlogHome() {
 
   const [hasMore, setHasMore] = useState(true);
   const fetchNext = async () => {
-    const data = await fetchEntryList({ dispatch, blogId, offset: entryList.length })
+    const data = await fetchEntryList({
+      dispatch,
+      blogId,
+      offset: entryList.length,
+    });
     if (!data.hasMore) {
-      setHasMore(false)
+      setHasMore(false);
     }
-  }
+  };
 
   useEffect(() => {
     // 初回取得後に縦幅足りない用
-    window.dispatchEvent(new Event('scroll'))
-  })
+    window.dispatchEvent(new Event('scroll'));
+  });
 
   if (!hasFetchFinished) {
     return (
@@ -66,15 +81,32 @@ export function BlogHome() {
   return (
     <>
       <Helmet>
-        <title>{blog.nickname} - Amida Blog: あみぶろ</title>
+        {hasHeaderFetchFinished ? (
+          <title>{blog.nickname} - Amida Blog: あみぶろ</title>
+        ) : (
+          <title>Amida Blog: あみぶろ</title>
+        )}
       </Helmet>
       <div className="BlogHome">
-        <BlogHeader blog={blog} />
+        {hasHeaderFetchFinished ? (
+          <BlogHeader blog={blog} />
+        ) : (
+          <div>Loading...</div>
+        )}
 
         <Main>
           <section className="BlogHome__entry-list">
             <h2 className="BlogHome__entry-list-title">記事一覧</h2>
-            <EntryList blogId={blogId} list={entryList} fetchNext={fetchNext} hasMore={hasMore} />
+            {hasFetchFinished ? (
+              <EntryList
+                blogId={blogId}
+                list={entryList}
+                fetchNext={fetchNext}
+                hasMore={hasMore}
+              />
+            ) : (
+              <div>Loading...</div>
+            )}
           </section>
         </Main>
       </div>

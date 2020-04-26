@@ -38,7 +38,9 @@ export function Entry() {
     (async () => {
       try {
         await fetchBlog({ dispatch, blogId });
-      } catch {}
+      } catch {
+        await renderNotFound({ dispatch });
+      }
 
       setHasHeaderFetchFinished(true);
     })();
